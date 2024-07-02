@@ -15,8 +15,6 @@ class LocationResource extends JsonResource
             'name' => $this->name,
             'cec_number' => $this->cec_number,
             'properties' => $this->properties,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }
