@@ -27,4 +27,9 @@ class Location extends Model
     {
         return $this->hasMany(Outage::class, 'location_id');
     }
+
+    public function activeOutages(): HasMany
+    {
+        return $this->outages()->whereDay('outages.start', now()->day);
+    }
 }

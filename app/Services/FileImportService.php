@@ -65,7 +65,7 @@ class FileImportService
 
     public function logFileName(): FileHistory
     {
-        return FileHistory::firstOrCreate(
+        return FileHistory::updateOrCreate(
             [
                 'name' => $this->fileName,
                 'entries_amount' => 0
@@ -73,9 +73,9 @@ class FileImportService
         );
     }
 
-    public function downloadDocument(string $fileName, string $fileUrl): void
+    public function downloadDocument(): void
     {
-        Storage::put("public/$fileName", file_get_contents($fileUrl));
+        Storage::put("public/$this->fileName", file_get_contents($this->fileUrl));
         $this->logStep('The file was downloaded and logged');
     }
 
