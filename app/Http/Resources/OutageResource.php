@@ -2,20 +2,31 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Outage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\Outage */
+/** @mixin Outage */
 class OutageResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
         return [
+            'type' => 'outage',
             'id' => $this->id,
-            'start' => $this->start,
-            'end' => $this->end,
-            'address' => $this->address,
-            'location' => new LocationResource($this->whenLoaded('location')),
+            'attributes' => [
+                'start' => $this->start,
+                'end' => $this->end,
+                'address' => $this->address,
+            ],
+            'relationships' => [
+                'data' => [
+                    'location' => new LocationResource($this->whenLoaded('location'))
+                ],
+            ],
+            'links' => [
+                'self' => route('outages.show', $this->id),
+            ]
         ];
     }
 }
