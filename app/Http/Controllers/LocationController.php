@@ -10,7 +10,7 @@ class LocationController extends Controller
 {
     public function index()
     {
-        return LocationResource::collection(Location::all());
+        return LocationResource::collection(Location::has('activeOutages')->get()->load('activeOutages'));
     }
 
     public function store(LocationRequest $request)

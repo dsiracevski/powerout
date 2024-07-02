@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->timestamp('end');
             $table->foreignId('location_id');
             $table->foreignId('file_history_id');
-            $table->string('address');
+            $table->text('address');
             $table->timestamps();
             $table->softDeletes();
         });

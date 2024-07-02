@@ -10,4 +10,4 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::apiResource('outages', OutageController::class);
-Route::get('locations', [LocationController::class, 'index'])->name('locations.index');
+Route::apiResource('locations', LocationController::class);

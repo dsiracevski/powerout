@@ -11,13 +11,10 @@ class OutageResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
             'id' => $this->id,
             'start' => $this->start,
             'end' => $this->end,
             'address' => $this->address,
-
             'location' => new LocationResource($this->whenLoaded('location')),
         ];
     }

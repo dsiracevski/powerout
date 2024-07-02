@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Schedule::command('app:import-outage-file')->everyMinute();
+Schedule::command('app:import-outage-file')->everySixHours();

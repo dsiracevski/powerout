@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
-class OutageService
+readonly class OutageService
 {
     public function __construct(
-        private readonly Outage $outage,
+        private Outage $outage,
     ) {
     }
 
@@ -31,6 +31,7 @@ class OutageService
 
         if ($fileDownloaded) {
             $this->logStep('File with same name already exists! Checking if imported...');
+            FileHistory::where('name', $fileName)->update(['updated_at' => now()]);
         }
 
         return FileHistory::where('name', $fileName)->exists();
