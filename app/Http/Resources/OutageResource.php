@@ -19,11 +19,13 @@ class OutageResource extends JsonResource
                 'end' => $this->end,
                 'address' => $this->address,
             ],
-            'relationships' => [
-                'data' => [
-                    'location' => new LocationResource($this->whenLoaded('location'))
-                ],
-            ],
+            'relationships' => $this->when(
+                $request->routeIs('outages.show'), [
+                    'data' => [
+                        'location' => new LocationResource($this->whenLoaded('location'))
+                    ],
+                ]
+            ),
             'links' => [
                 'self' => route('outages.show', $this->id),
             ]
