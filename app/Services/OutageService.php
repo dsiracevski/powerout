@@ -25,12 +25,14 @@ readonly class OutageService
         return $this->outage->where('end', $date)->get();
     }
 
-    public function checkIfFileContentsImported(string $fileName): bool
+    public function checkIfFileContentsImported(string $fileName, string $latestDownloadedFileName): bool
     {
         $fileDownloaded = Storage::exists("public/$fileName");
+        $latestDownloadedFile = Storage::exists("public/$latestDownloadedFileName");
 
         if ($fileDownloaded) {
             $this->logStep('File with same name already exists! Checking if imported...');
+            $downloadedFile = Storage::get("public/$fileName");
             FileHistory::where('name', $fileName)->update(['updated_at' => now()]);
         }
 

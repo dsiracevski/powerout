@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Imports\OutageImport;
 use App\Models\FileHistory;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,15 +15,18 @@ class FileImportService
     protected string $fileUrl;
     protected string $fileName;
 
+    protected string $latestDownloadedFile;
+
     public function __construct()
     {
+        $this->setLatestDownloadedFile();
         $this->setData();
     }
 
     public function handle(): void
     {
         $outageService = app()->make(OutageService::class);
-        $fileImported = $outageService->checkIfFileContentsImported($this->fileName);
+        $fileImported = $outageService->checkIfFileContentsImported($this->fileName, $this->latestDownloadedFile);
 
         if (!$fileImported) {
             $this->importOutageDocument();
@@ -40,11 +44,15 @@ class FileImportService
 
         $this->fileName = Str::remove('.aspx', basename($this->fileUrl));
         $this->fileName .= ".xlsx";
+
+        if ($this->fileName === 'Planned_outages_MK.xlsx') {
+            $this->fileName = now()->toDateString().'-'.$this->fileName;
+        }
     }
 
     private function importOutageDocument(): void
     {
-        $this->downloadDocument($this->fileName, $this->fileUrl);
+        $this->downloadDocument();
 
         $outageImport = new OutageImport($this->fileName);
         $fileHistory = $this->logFileName();
@@ -82,6 +90,22 @@ class FileImportService
     public function logStep(string $message): void
     {
         Log::info($message);
+    }
+
+    private function setLatestDownloadedFile(): void
+    {
+        $allFiles = File::allFiles('storage/app/public');
+
+        $this->latestDownloadedFile = collect($allFiles)
+            ->filter(function ($file) {
+                return $file->getExtension() === 'xlsx';
+            })->sortBy(function ($file) {
+                return $file->getCTime();
+            })->last();
+
+        $stringTobeRemoved = "storage/app/public\\";
+
+        $this->latestDownloadedFile = Str::replace(search: $stringTobeRemoved, replace: '', subject: $this->latestDownloadedFile);
     }
 
 }
