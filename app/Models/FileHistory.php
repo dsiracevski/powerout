@@ -13,6 +13,7 @@ class FileHistory extends Model
     protected $fillable = [
         'name',
         'entries_amount',
+        'md5_hash'
     ];
 
     public function outages(): HasMany

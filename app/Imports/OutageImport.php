@@ -6,7 +6,6 @@ use App\Models\FileHistory;
 use App\Models\Location;
 use App\Models\Outage;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
@@ -16,10 +15,12 @@ class OutageImport implements ToModel, WithStartRow, SkipsEmptyRows
 {
     public string $fileName;
     private int $rows = 0;
+
     public function __construct($fileName)
     {
         $this->fileName = $fileName;
     }
+
     public function model(array $row): ?Model
     {
         $row = $this->formatted($row);
@@ -40,19 +41,20 @@ class OutageImport implements ToModel, WithStartRow, SkipsEmptyRows
         return $row;
     }
 
-    public function import(array $row): Outage|Collection
+    public function import(array $row): Outage
     {
         $locationName = trim(preg_replace('/\d+/', '', $row[3]));
         $location = Location::firstWhere('name', $locationName);
         $outageHistoryFile = FileHistory::firstWhere('name', $this->fileName);
-
-        return new Outage([
+        $data = [
             'start' => Date::excelToDateTimeObject($row[0]),
             'end' => Date::excelToDateTimeObject($row[1]),
             'location_id' => $location->id,
             'file_history_id' => $outageHistoryFile->id,
             'address' => $row[4]
-        ]);
+        ];
+
+        return Outage::updateOrCreate($data);
     }
 
     /**
