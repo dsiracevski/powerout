@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api\V1;
 
 use App\Models\Outage;
 use Illuminate\Http\Request;
@@ -21,13 +21,11 @@ class OutageResource extends JsonResource
             ],
             'relationships' => $this->when(
                 $request->routeIs('outages.show'), [
-                    'data' => [
                         'location' => new LocationResource($this->whenLoaded('location'))
-                    ],
                 ]
             ),
             'links' => [
-                'self' => route('outages.show', $this->id),
+                ['self' => route('outages.show', $this->id)],
             ]
         ];
     }
