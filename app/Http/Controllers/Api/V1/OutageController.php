@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\OutageRequest;
-use App\Http\Resources\OutageResource;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\OutageRequest;
+use App\Http\Resources\Api\V1\OutageResource;
 use App\Models\Outage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;

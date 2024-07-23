@@ -1,13 +1,8 @@
 <?php
 
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\OutageController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
-Route::apiResource('outages', OutageController::class);
-Route::apiResource('locations', LocationController::class);
+Route::post('/login', LoginController::class)->name('login');
+Route::middleware('auth:sanctum')->post('/logout', LogoutController::class)->name('logout');

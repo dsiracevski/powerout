@@ -20,14 +20,10 @@ class Outage extends Model
         'created_at',
         'updated_at'
     ];
-
-    protected function casts(): array
-    {
-        return [
-            'start' => 'timestamp',
-            'end' => 'timestamp',
-        ];
-    }
+    protected $casts = [
+        'start' => 'datetime',
+        'end' => 'datetime',
+    ];
 
     public function location(): BelongsTo
     {

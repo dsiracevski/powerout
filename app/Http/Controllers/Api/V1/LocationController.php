@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Requests\LocationRequest;
-use App\Http\Resources\LocationResource;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\LocationRequest;
+use App\Http\Resources\Api\V1\LocationResource;
 use App\Models\Location;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class LocationController extends Controller
 {
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         return LocationResource::collection(Location::paginate());
     }
