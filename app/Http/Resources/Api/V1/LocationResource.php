@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api\V1;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
@@ -14,14 +14,9 @@ class LocationResource extends JsonResource
         return [
             'type' => 'location',
             'id' => $this->id,
-            'attributes' => [
-                'name' => $this->name,
-                'cec_number' => $this->cec_number,
-                'properties' => $this->properties,
-            ],
-            'links' => [
-                'self' => route('locations.show', ['location' => $this->id]),
-            ]
+            'name' => $this->name,
+            'cec_number' => $this->cec_number,
+            'properties' => $this->properties,
         ];
     }
 }
