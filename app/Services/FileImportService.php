@@ -63,9 +63,11 @@ class FileImportService
         )
             ->toArray($outageImport, $this->fileName, 'public');
 
-        $fileHistory->update(['entries_amount' => $outageImport->getRowCount(), 'md5_hash' => $this->tempFileMD5Hash]);
+        $recordsCount = $outageImport->getRowCount();
 
-        $this->logStep("$this->fileName contents imported to database");
+        $fileHistory->update(['entries_amount' => $recordsCount, 'md5_hash' => $this->tempFileMD5Hash]);
+
+        $this->logStep("$this->fileName contents imported to database, $recordsCount entries created");
     }
 
     public function logFileName(): FileHistory

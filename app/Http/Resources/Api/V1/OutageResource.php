@@ -14,19 +14,14 @@ class OutageResource extends JsonResource
         return [
             'type' => 'outage',
             'id' => $this->id,
-            'attributes' => [
-                'start' => $this->start,
-                'end' => $this->end,
-                'address' => $this->address,
-            ],
+            'start' => $this->start,
+            'end' => $this->end,
+            'address' => $this->address,
             'relationships' => $this->when(
                 $request->routeIs('outages.show'), [
-                        'location' => new LocationResource($this->whenLoaded('location'))
+                    'location' => new LocationResource($this->whenLoaded('location'))
                 ]
-            ),
-            'links' => [
-                ['self' => route('outages.show', $this->id)],
-            ]
+            )
         ];
     }
 }
