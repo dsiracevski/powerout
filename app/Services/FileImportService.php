@@ -33,7 +33,7 @@ class FileImportService
 
     private function setData(): void
     {
-        $url = "https://elektrodistribucija.mk/Grid/Planned-disconnections.aspx?lang=en-us";
+        $url = "https://elektrodistribucija.mk/Grid/Planned-disconnections.aspx?lang=mk-mk";
         preg_match('/Planirani-isklucuvanja-Samo-aktuelno(.*?).aspx/', file_get_contents($url), $match);
         $name = trim($match[1], '/');
         $this->fileUrl = "https://www.elektrodistribucija.mk/Files/Planirani-isklucuvanja-Samo-aktuelno/$name.aspx";
