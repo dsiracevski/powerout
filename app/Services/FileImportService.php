@@ -4,10 +4,19 @@ namespace App\Services;
 
 use App\Imports\OutageImport;
 use App\Models\FileHistory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use Psr\Http\Message\RequestInterface;
+
 
 class FileImportService
 {
@@ -22,13 +31,22 @@ class FileImportService
         $this->performImportChecks();
     }
 
-    public function handle(): void
+    public function handle(): RedirectResponse
     {
         if ($this->importShouldContinue) {
-            $this->importOutageDocument();
-        } else {
-            $this->logStep('File data already imported to database, nothing to import...');
+            $recordsCount = $this->importOutageDocument();
+            return redirect()->back()->with([
+                'success' => 'Success, '.$recordsCount.' records updated.',
+            ]);
         }
+
+        $this->logFileName();
+        $this->logStep('File data already imported to database, nothing to import...');
+
+        return redirect()->back()->with([
+                'info' => "Nothing to update."
+            ]
+        );
     }
 
     private function setData(): void
@@ -49,10 +67,16 @@ class FileImportService
         $this->setMD5HashForTempFile();
     }
 
-    private function importOutageDocument(): void
+    private function importOutageDocument(): int
     {
+        $fh = FileHistory::create([
+            'name' => $this->fileName,
+            'entries_amount' => 0,
+            'md5_hash' => $this->tempFileMD5Hash,
+            'updated_at' => now()->toDateTimeString()
+        ]);
+
         $outageImport = new OutageImport($this->fileName);
-        $fileHistory = $this->logFileName();
         $this->logStep("Import of file $this->fileName started...");
 
         Excel::import(
@@ -65,19 +89,15 @@ class FileImportService
 
         $recordsCount = $outageImport->getRowCount();
 
-        $fileHistory->update(['entries_amount' => $recordsCount, 'md5_hash' => $this->tempFileMD5Hash]);
-
+        $fh->update(['entries_amount' => $recordsCount]);
         $this->logStep("$this->fileName contents imported to database, $recordsCount entries created");
+
+        return $recordsCount;
     }
 
-    public function logFileName(): FileHistory
+    public function logFileName(): void
     {
-        return FileHistory::updateOrCreate(
-            [
-                'name' => $this->fileName,
-                'entries_amount' => 0
-            ]
-        );
+        FileHistory::whereName($this->fileName)->first()->update(['updated_at' => now()->toDateTimeString()]);
     }
 
     public function logStep(string $message): void
@@ -87,12 +107,47 @@ class FileImportService
 
     private function downloadTempDocument(): void
     {
-        if (Storage::missing("temp/$this->fileName")) {
-            Storage::put("temp/$this->fileName", file_get_contents($this->fileUrl));
-            $this->logStep("Downloaded file - $this->fileName to temporary folder");
-        } else {
-            $this->logStep("File - $this->fileName has already been downloaded");
+        try {
+            $client = (new Client())->get($this->fileUrl, [
+                'timeout' => 10,
+            ]);
+            $content = $client->getBody()->getContents();
+            $status = $client->getStatusCode();
+
+            if ($status === 200 && Storage::missing("temp/$this->fileName")) {
+                Storage::put("temp/$this->fileName", $content);
+                $this->logStep("Downloaded file - $this->fileName to temporary folder");
+            } else {
+                $this->logStep("File - $this->fileName has already been downloaded");
+            }
+//            dd($status);
+        } catch (ConnectException $e) {
+            dd($e->getMessage());
+        } catch (GuzzleException $e) {
+            dd($e->getMessage());
         }
+
+//
+//        if ($status === 200 && Storage::missing("temp/$this->fileName")) {
+//            Storage::put("temp/$this->fileName", $content);
+//            $this->logStep("Downloaded file - $this->fileName to temporary folder");
+//        } else {
+//            $this->logStep("File - $this->fileName has already been downloaded");
+//        }
+    }
+
+    private function urlAccessible(): bool
+    {
+        $client = new Client(['timeout' => 2]);
+        $urlAccessible = $client->head($this->fileUrl)->getStatusCode() === 200;
+
+        if (!file_get_contents($this->fileUrl)) {
+            $this->logStep("Can't connect to $this->fileUrl");
+        } else {
+            $this->logStep("Connected to $this->fileUrl");
+        }
+
+        return $urlAccessible;
     }
 
     public function setMD5HashForTempFile(): void
@@ -118,6 +173,7 @@ class FileImportService
 
     private function deleteTempFile(): void
     {
+        $this->logFileName();
         Storage::delete("temp/$this->fileName");
         $this->logStep("Deleted file - $this->fileName from temporary folder");
     }
