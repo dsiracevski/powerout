@@ -1,0 +1,57 @@
+<script setup>
+
+import Menu from "@/Components/Custom/Menu.vue";
+import {Link} from "@inertiajs/vue3";
+import Layout from "@/Components/Custom/Layout.vue";
+import Contact from "@/Components/Custom/Contact.vue";
+import Roadmap from "@/Components/Custom/Roadmap.vue";
+import Welcome from "@/Components/Custom/Welcome.vue";
+
+function goToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+</script>
+
+<template>
+  <Layout>
+    <Menu/>
+    <transition name="slide-fade" mode="out-in" appear>
+      <div
+          class=" md:max-w-3xl lg:min-w-7xl min-w-[332px] min-h-full mx-auto px-4 md:px-6 bg-white md:shadow-lg rounded-2xl md:shadow-cyan-500/50 divide-y-2 divide-solid divide-cyan-500/50 overflow-auto lg:min-w-[896px]">
+        <div class="flex flex-col justify-center items-start gap-2 m-6">
+          <p class="self-center mb-4 text-2xl">PrekiniNaStruja.mk</p>
+          <p>
+            As a software developer, I might not be able to code your life, but I can <span
+              class="text-lg font-semibold">try</span> to make it a bit easier.
+          </p>
+          <Welcome />
+          <Roadmap />
+          <p class="mt-6">
+            Explore the site to discover how you can take charge of staying informed and prepared for power outages.
+          </p>
+          <Contact />
+        </div>
+      </div>
+    </transition>
+  </Layout>
+</template>
+
+<style scoped>
+.slide-fade-enter-active {
+  transition: all 0.8s ease-in;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 25%;
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+</style>

@@ -13,7 +13,7 @@ class OutageController extends Controller
 {
     public function index(): AnonymousResourceCollection
     {
-        return OutageResource::collection(Outage::with('location')->paginate());
+        return OutageResource::collection(Outage::with('location')->latest()->get());
     }
 
     public function store(OutageRequest $request): OutageResource

@@ -46,6 +46,7 @@ class OutageImport implements ToModel, WithStartRow, SkipsEmptyRows
         $locationName = trim(preg_replace('/\d+/', '', $row[3]));
         $location = Location::firstWhere('name', $locationName);
         $outageHistoryFile = FileHistory::firstWhere('name', $this->fileName);
+
         $data = [
             'start' => Date::excelToDateTimeObject($row[0]),
             'end' => Date::excelToDateTimeObject($row[1]),
