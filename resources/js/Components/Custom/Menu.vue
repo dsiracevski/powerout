@@ -22,7 +22,7 @@ function changeMode() {
 </script>
 
 <template>
-  <div class="bg-transparent grid grid-cols-3 place-items-center gap-0 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
+  <div class="bg-transparent grid grid-cols-3 place-items-center relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto gap-3">
     <button @click="darkMode = !darkMode" class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
       <svg class="fill-violet-700 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
@@ -48,9 +48,9 @@ function changeMode() {
         {{ $t('menu.about') }}
       </Link>
     </div>
-    <div class="flex">
+    <div class="flex left-8">
       <button aria-label="mk" @click="loadLanguageAsync('mk')" class="rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="0 0 32 32">
+        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
@@ -79,7 +79,7 @@ function changeMode() {
         </svg>
       </button>
       <button aria-label="en" @click="loadLanguageAsync('en')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="0 0 32 32">
+        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
