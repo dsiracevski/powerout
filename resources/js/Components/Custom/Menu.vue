@@ -48,9 +48,9 @@ function changeMode() {
         {{ $t('menu.about') }}
       </Link>
     </div>
-    <div class="flex">
+    <div class="flex left-8">
       <button aria-label="mk" @click="loadLanguageAsync('mk')" class="rounded-full">
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="0 0 32 32">
+        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
@@ -79,7 +79,7 @@ function changeMode() {
         </svg>
       </button>
       <button aria-label="en" @click="loadLanguageAsync('en')">
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="0 0 32 32">
+        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
           <g id="SVGRepo_iconCarrier">
