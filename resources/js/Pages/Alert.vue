@@ -22,7 +22,7 @@ console.log(type.value)
 
 <template>
   <transition name="slide-fade" mode="out-in" appear>
-    <div id="modal" class="fixed inset-0 flex items-center justify-center z-50">
+    <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 bg-gray-300 bg-opacity-75">
       <div
           :class="[statuses[type], 'py-2 px-4 rounded-md text-white items-center place-content-center text-center mx-auto right-4 flex gap-4']">
         <p>{{ props.message }}</p>
