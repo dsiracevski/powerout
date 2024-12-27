@@ -22,7 +22,7 @@ function changeMode() {
 </script>
 
 <template>
-  <div class="bg-transparent grid grid-cols-3 place-items-center gap-0 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
+  <div class="bg-transparent grid grid-cols-3 place-items-center gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
     <button @click="darkMode = !darkMode" class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
       <svg class="fill-violet-700 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
