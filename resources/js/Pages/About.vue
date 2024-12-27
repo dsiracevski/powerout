@@ -22,15 +22,15 @@ function goToTop() {
       <div
           class=" md:max-w-3xl lg:min-w-7xl min-w-[332px] min-h-full mx-auto px-4 md:px-6 bg-white md:shadow-lg rounded-2xl md:shadow-cyan-500/50 divide-y-2 divide-solid divide-cyan-500/50 overflow-auto lg:min-w-[896px]">
         <div class="flex flex-col justify-center items-start gap-2 m-6">
-          <p class="self-center mb-4 text-2xl">PrekiniNaStruja.mk</p>
+          <p class="self-center mb-4 text-2xl">{{ $t('site.name') }}</p>
           <p>
-            As a software developer, I might not be able to code your life, but I can <span
-              class="text-lg font-semibold">try</span> to make it a bit easier.
+            {{ $t('intro.first') }} <span
+              class="text-lg font-semibold">{{ $t('intro.try') }}</span> {{ $t('intro.last') }}.
           </p>
           <Welcome />
           <Roadmap />
           <p class="mt-6">
-            Explore the site to discover how you can take charge of staying informed and prepared for power outages.
+            {{ $t('welcome.explore') }}
           </p>
           <Contact />
         </div>

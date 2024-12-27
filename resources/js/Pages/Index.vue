@@ -1,17 +1,12 @@
 <script setup>
 
 import {router, usePage} from "@inertiajs/vue3";
-import {reactive, computed, ref, watch, provide, readonly} from "vue";
+import {reactive, ref, watch, provide, readonly} from "vue";
 import Pagination from "@/Pages/Pagination.vue";
-import Alert from "@/Pages/Alert.vue";
 import debounce from 'lodash/debounce'
 import Timeline from "@/Components/Custom/Timeline.vue";
-import Swal from "sweetalert2";
-import dayjs from "dayjs";
 import {useEventStore} from "@/stores/eventStore.js";
 import {storeToRefs} from "pinia";
-import UpdateButton from "@/Components/Filters/UpdateButton.vue";
-import {Link} from '@inertiajs/vue3';
 import Menu from "@/Components/Custom/Menu.vue";
 import Layout from "@/Components/Custom/Layout.vue";
 
