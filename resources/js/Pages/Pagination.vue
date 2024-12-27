@@ -1,7 +1,7 @@
 <script setup>
 
 import {Link} from "@inertiajs/vue3";
-import {inject, ref} from "vue";
+import {trans} from "laravel-vue-i18n";
 
 defineProps({
   links: {
@@ -25,8 +25,8 @@ function capitalizeWord(input) {
     <Link preserve-scroll
         :is="link ? Link : 'span'"
         v-for="(link, name) in links"
-        v-html="capitalizeWord(name)"
+        v-html="trans(name)"
         :href="link ? link : ''"
-        class="bg-gray-700 text-white px-3 py-1 rounded-lg"/>
+        class="bg-gray-700 text-white dark:bg-gray-200 dark:text-orange-500 px-3 py-1 rounded-lg capitalize"/>
   </div>
 </template>

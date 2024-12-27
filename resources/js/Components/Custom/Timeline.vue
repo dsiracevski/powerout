@@ -45,7 +45,7 @@ const statuses = {
   <Alert v-show="activeMessage.length" :type="messageType" :message="message"/>
 
   <div
-      class="md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto px-4 md:px-6 bg-stone-100 md:shadow-lg rounded-2xl md:shadow-cyan-400 divide-y-2 divide-solid divide-[#C9E6F0] overflow-auto lg:min-w-[896px]">
+      class="md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto px-4 md:px-6 bg-stone-100 dark:bg-gray-300 shadow-lg rounded-2xl shadow-cyan-400 divide-y-2 divide-solid divide-[#C9E6F0] overflow-auto lg:min-w-[896px]">
     <FilterGroup/>
     <div class=" flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-6">
       <div class="w-full max-w-3xl mx-auto">

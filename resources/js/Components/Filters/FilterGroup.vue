@@ -31,16 +31,17 @@ const gridSize = {
 
 <template>
   <div class="flex flex-col my-2">
-    <button @click="toggleFilters" class="border-l-orange-500 border-l-orange-500 border-l-orange-500 mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-500">Filters
+    <button @click="toggleFilters" class="border-l-orange-500 border-l-orange-500 border-l-orange-500 mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-500">
+      {{ $t('filter.filters') }}
     </button>
     <transition name="fade">
       <div v-show="toggle" class="place-content-between mt-5 grid md:grid-cols-2 grid-cols-1 gap-2 mx-auto mb-4">
         <div
             :class="[gridSize[toggleReset], 'grid md:col-span-1 col-span-2 gap-2 md:order-first order-last']">
-          <DateFilterButton class="" title="yesterday"
+          <DateFilterButton class="" :title="$t('filter.yesterday')"
                             :date="dayjs().subtract(1, 'day').format('YYYY-MM-DD')"/>
-          <DateFilterButton class="" title="today" :date="dayjs().format('YYYY-MM-DD')"/>
-          <DateFilterButton class="" title="tomorrow"
+          <DateFilterButton class="" :title="$t('filter.today')" :date="dayjs().format('YYYY-MM-DD')"/>
+          <DateFilterButton class="" :title="$t('filter.tomorrow')"
                             :date="dayjs().add(1, 'day').format('YYYY-MM-DD')"/>
           <transition name="slide-fade" mode="out-in">
             <ResetButton v-if="toggleReset" @click="toggleReset = false"/>

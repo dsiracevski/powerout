@@ -5,7 +5,7 @@ defineProps({
 </script>
 
 <template>
-  <li class="text-slate-500 md:text-base text-sm">
+  <li class="text-slate-500 md:text-base text-sm dark:text-black">
     {{ addresses }}
   </li>
 </template>

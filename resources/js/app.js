@@ -7,7 +7,7 @@ import {createApp, h} from 'vue';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import {createPinia} from "pinia";
 import {autoAnimatePlugin} from "@formkit/auto-animate/vue";
-
+import { i18nVue } from 'laravel-vue-i18n';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -24,6 +24,13 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(createPinia())
             .use(autoAnimatePlugin)
+            .use(i18nVue, {
+                lang: 'mk',
+                resolve: async lang => {
+                    const langs = import.meta.glob('../../lang/*.json');
+                    return await langs[`../../lang/${lang}.json`]();
+                }
+            })
             .mount(el);
     },
     progress: {

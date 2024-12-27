@@ -4,20 +4,17 @@
 
 <template>
   <p class="mt-4 self-center text-2xl font-semibold">
-    What's next:
+    {{ $t('roadmap.title') }}
   </p>
   <ul class="flex md:flex-row flex-col gap-2">
     <li class="">
-      <span class="font-semibold text-lg">Live Outage Map</span>: Track current outages and affected areas in
-      real-time on country map
+      <span class="font-semibold text-lg">{{ $t('roadmap.first') }}</span>: {{ $t('roadmap.first.body') }}
     </li>
     <li class="">
-      <span class="font-semibold text-lg">Historical Data</span>: Analyze past outage trends and patterns for
-      better preparedness (charts, graphs, and such)
+      <span class="font-semibold text-lg">{{ $t('roadmap.second') }}</span>: {{ $t('roadmap.second.body') }}
     </li>
     <li class="">
-      <span class="font-semibold text-lg">Proactive Alerts</span>: Sign up for notifications to stay ahead of
-      potential disruptions in your region
+      <span class="font-semibold text-lg">{{ $t('roadmap.third') }}</span>: {{ $t('roadmap.third.body') }}
     </li>
   </ul>
 </template>

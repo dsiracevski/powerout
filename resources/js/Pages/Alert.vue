@@ -17,7 +17,6 @@ function dismissModal() {
 }
 
 const statuses = {warning: 'bg-red-400', info: 'bg-blue-400', success: 'bg-green-400'}
-console.log(type.value)
 </script>
 
 <template>
