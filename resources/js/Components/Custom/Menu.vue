@@ -23,7 +23,7 @@ function changeMode() {
 
 <template>
   <div class="bg-transparent grid grid-cols-3 place-items-center gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
-    <div class="flex left-8">
+    <div class="flex">
       <button aria-label="mk" @click="loadLanguageAsync('mk')" class="rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
