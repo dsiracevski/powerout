@@ -25,9 +25,9 @@ createInertiaApp({
             .use(ZiggyVue)
             .use(createPinia())
             .use(autoAnimatePlugin)
-            // .use(VueTag, {
-            //     config: {id: "G-4G5BZLWH7H"}
-            // })
+            .use(VueTag, {
+                config: {id: "G-4G5BZLWH7H"}
+            })
             .use(i18nVue, {
                 lang: 'mk',
                 resolve: async lang => {

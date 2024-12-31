@@ -8,8 +8,6 @@ let props = defineProps({
   }
 });
 
-// console.log(props.links);
-
 </script>
 
 <template>
