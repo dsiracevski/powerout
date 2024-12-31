@@ -68,7 +68,7 @@ const statuses = {
             <div class="bg-[#161616] rounded-full px-14 py-12 shadow-xl shadow-orange-500">
               <div class="flex flex-col content-center text-center gap-5">
                 <p class="text-white">
-                  No results...
+                  {{ $t('No Results') }}
                 </p>
                 <Cat/>
               </div>
