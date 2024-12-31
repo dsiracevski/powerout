@@ -34,7 +34,6 @@ watch(() => props.outages, (newVal, oldVal) => {
   if (newVal) {
     outages = newVal;
     links.value = newVal.meta.links;
-    console.log(links.value)
   }
 })
 
