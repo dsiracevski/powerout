@@ -28,10 +28,16 @@ const props = defineProps({
   }
 });
 let outages = ref(props.outages);
+let links = ref(outages.value.meta.links);
 
 watch(() => props.outages, (newVal, oldVal) => {
-  outages = newVal;
+  if (newVal) {
+    outages = newVal;
+    links.value = newVal.meta.links;
+    console.log(links.value)
+  }
 })
+
 
 const filter = reactive({
   name: props.filters.filter.name,
@@ -79,14 +85,6 @@ watch([filter, languageChanged], debounce(function (value) {
   )
 }, 300));
 
-// watch(languageChanged, function (value) {
-//   if (value === 'en') {
-//     oldData.value = data.value;
-//     data.value = transliterate(data.value);
-//     return;
-//   }
-
-
 let activeMessage = ref('');
 let messageType = ref('');
 let message = ref('');
@@ -121,9 +119,7 @@ function goToTop() {
         :active-message="activeMessage"
         :current-date="filter.date"/>
     <div class="bg-transparent w-full mt-2 mb-2 flex place-content-evenly">
-      <Pagination
-          :links="props.outages.links"
-          preserve-scroll/>
+      <Pagination :links="links" />
       <button
           @click="goToTop"
           class="animate-bounce md:hidden">

@@ -9,7 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 /** @see \App\Models\Outage */
 class OutageResourceCollection extends ResourceCollection
 {
-    public array $pagination = [];
+//    public array $pagination = [];
 
 //    public function __construct($resource, string|array $filter = null, string $state = null)
 //    {
