@@ -15,7 +15,7 @@ let props = defineProps({
     <Link preserve-scroll
           v-for="link in props.links"
           v-html="link.label"
-          :href="link.url ? link.url : '/'"
+          :href="link.url ? link.url : ''"
           :class="{'opacity-25 cursor-not-allowed pointer-events-none': link.active || link.url === null}"
           class="bg-gray-700 text-white dark:bg-gray-200 dark:text-orange-500 px-3 py-1 rounded-lg capitalize"> </Link>
   </div>

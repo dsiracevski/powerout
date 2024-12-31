@@ -9,9 +9,9 @@ import Welcome from "@/Components/Custom/Welcome.vue";
 import {event} from "vue-gtag";
 import {onMounted} from "vue";
 
-onMounted(() => {
-  event('outages', {method: 'Google'})
-})
+// onMounted(() => {
+//   event('outages', {method: 'Google'})
+// })
 function goToTop() {
   window.scrollTo({
     top: 0,
