@@ -7,6 +7,7 @@ import Contact from "@/Components/Custom/Contact.vue";
 import Roadmap from "@/Components/Custom/Roadmap.vue";
 import Welcome from "@/Components/Custom/Welcome.vue";
 import {event} from "vue-gtag";
+import {onMounted} from "vue";
 
 onMounted(() => {
   event('outages', {method: 'Google'})
