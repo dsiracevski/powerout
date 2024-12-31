@@ -1,7 +1,7 @@
 <script setup>
 
 import {router, usePage} from "@inertiajs/vue3";
-import {reactive, ref, watch, provide, readonly, toRef} from "vue";
+import {reactive, ref, watch, provide, readonly, toRef, onMounted} from "vue";
 import Pagination from "@/Pages/Pagination.vue";
 import debounce from 'lodash/debounce'
 import Timeline from "@/Components/Custom/Timeline.vue";
@@ -11,7 +11,11 @@ import Menu from "@/Components/Custom/Menu.vue";
 import Layout from "@/Components/Custom/Layout.vue";
 import {getActiveLanguage} from "laravel-vue-i18n";
 import {useLanguageStore} from "@/stores/languageStore.js";
+import {event} from "vue-gtag";
 
+onMounted(() => {
+  event('outages', {method: 'Google'})
+})
 const props = defineProps({
   outages: {
     type: Object

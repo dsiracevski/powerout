@@ -6,7 +6,11 @@ import Layout from "@/Components/Custom/Layout.vue";
 import Contact from "@/Components/Custom/Contact.vue";
 import Roadmap from "@/Components/Custom/Roadmap.vue";
 import Welcome from "@/Components/Custom/Welcome.vue";
+import {event} from "vue-gtag";
 
+onMounted(() => {
+  event('outages', {method: 'Google'})
+})
 function goToTop() {
   window.scrollTo({
     top: 0,
