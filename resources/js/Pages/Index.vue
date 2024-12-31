@@ -11,7 +11,6 @@ import Menu from "@/Components/Custom/Menu.vue";
 import Layout from "@/Components/Custom/Layout.vue";
 import {getActiveLanguage} from "laravel-vue-i18n";
 import {useLanguageStore} from "@/stores/languageStore.js";
-import {transliterate} from "transliteration";
 
 const props = defineProps({
   outages: {
