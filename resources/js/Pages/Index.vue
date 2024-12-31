@@ -13,9 +13,9 @@ import {getActiveLanguage} from "laravel-vue-i18n";
 import {useLanguageStore} from "@/stores/languageStore.js";
 import {event} from "vue-gtag";
 
-// onMounted(() => {
-//   event('outages', {method: 'Google'})
-// })
+onMounted(() => {
+  event('outages', {method: 'Google'})
+})
 const props = defineProps({
   outages: {
     type: Object
