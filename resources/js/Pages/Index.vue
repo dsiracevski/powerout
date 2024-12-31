@@ -1,7 +1,7 @@
 <script setup>
 
 import {router, usePage} from "@inertiajs/vue3";
-import {reactive, ref, watch, provide, readonly} from "vue";
+import {reactive, ref, watch, provide, readonly, toRef} from "vue";
 import Pagination from "@/Pages/Pagination.vue";
 import debounce from 'lodash/debounce'
 import Timeline from "@/Components/Custom/Timeline.vue";
@@ -9,8 +9,11 @@ import {useEventStore} from "@/stores/eventStore.js";
 import {storeToRefs} from "pinia";
 import Menu from "@/Components/Custom/Menu.vue";
 import Layout from "@/Components/Custom/Layout.vue";
+import {getActiveLanguage} from "laravel-vue-i18n";
+import {useLanguageStore} from "@/stores/languageStore.js";
+import {transliterate} from "transliteration";
 
-let props = defineProps({
+const props = defineProps({
   outages: {
     type: Object
   },
@@ -21,6 +24,11 @@ let props = defineProps({
     type: Object
   }
 });
+let outages = ref(props.outages);
+
+watch(() => props.outages, (newVal, oldVal) => {
+  outages = newVal;
+})
 
 const filter = reactive({
   name: props.filters.filter.name,
@@ -45,26 +53,36 @@ watch(dateChanged, function (value) {
 watch(searchChanged, function (value) {
   filter.name = value
 });
-const initialUrl = usePage().url;
 
-watch(filter, debounce(function (value) {
-  console.log(initialUrl);
+const languageStore = useLanguageStore();
+const {languageChanged} = storeToRefs(languageStore)
+
+watch([filter, languageChanged], debounce(function (value) {
   router.get('/', {
         filter: {
           name: filter.name,
           date: filter.date,
-        }
+        },
+        locale: getActiveLanguage()
       },
       {
         preserveState: true,
         preserveScroll: true,
         replace: true,
         onSuccess: () => {
-          window.history.replaceState({}, '', initialUrl);
+          window.history.replaceState({}, '', '/');
         }
       }
   )
 }, 300));
+
+// watch(languageChanged, function (value) {
+//   if (value === 'en') {
+//     oldData.value = data.value;
+//     data.value = transliterate(data.value);
+//     return;
+//   }
+
 
 let activeMessage = ref('');
 let messageType = ref('');
@@ -90,16 +108,13 @@ function goToTop() {
   });
 }
 
-function isScreenWidth768() {
-  return window.innerWidth === 768;
-}
 </script>
 
 <template>
   <Layout>
     <Menu/>
     <Timeline
-        :data="props.outages.data"
+        :data="outages.data"
         :active-message="activeMessage"
         :current-date="filter.date"/>
     <div class="bg-transparent w-full mt-2 mb-2 flex place-content-evenly">

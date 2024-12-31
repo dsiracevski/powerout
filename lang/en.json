@@ -1,4 +1,6 @@
 {
+  "dark": "dark",
+  "light": "light",
   "menu.home": "home",
   "menu.about": "about",
   "filter.filters": "filters",

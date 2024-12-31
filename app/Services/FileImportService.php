@@ -5,17 +5,11 @@ namespace App\Services;
 use App\Imports\OutageImport;
 use App\Models\FileHistory;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use Psr\Http\Message\RequestInterface;
 
 
 class FileImportService
@@ -53,6 +47,7 @@ class FileImportService
     {
         $url = "https://elektrodistribucija.mk/Grid/Planned-disconnections.aspx?lang=mk-mk";
         preg_match('/Planirani-isklucuvanja-Samo-aktuelno(.*?).aspx/', file_get_contents($url), $match);
+
         $name = trim($match[1], '/');
         $this->fileUrl = "https://www.elektrodistribucija.mk/Files/Planirani-isklucuvanja-Samo-aktuelno/$name.aspx";
 
@@ -97,7 +92,7 @@ class FileImportService
 
     public function logFileName(): void
     {
-        FileHistory::whereName($this->fileName)->first()->update(['updated_at' => now()->toDateTimeString()]);
+        FileHistory::whereMd5Hash($this->tempFileMD5Hash)->first()->update(['updated_at' => now()->toDateTimeString()]);
     }
 
     public function logStep(string $message): void
@@ -107,33 +102,16 @@ class FileImportService
 
     private function downloadTempDocument(): void
     {
-        try {
-            $client = (new Client())->get($this->fileUrl, [
-                'timeout' => 10,
-            ]);
-            $content = $client->getBody()->getContents();
-            $status = $client->getStatusCode();
+        $client = (new Client())->get($this->fileUrl);
+        $content = $client->getBody()->getContents();
+        $status = $client->getStatusCode();
 
-            if ($status === 200 && Storage::missing("temp/$this->fileName")) {
-                Storage::put("temp/$this->fileName", $content);
-                $this->logStep("Downloaded file - $this->fileName to temporary folder");
-            } else {
-                $this->logStep("File - $this->fileName has already been downloaded");
-            }
-//            dd($status);
-        } catch (ConnectException $e) {
-            dd($e->getMessage());
-        } catch (GuzzleException $e) {
-            dd($e->getMessage());
+        if ($status === 200 && Storage::missing("temp/$this->fileName")) {
+            Storage::put("temp/$this->fileName", $content);
+            $this->logStep("Downloaded file - $this->fileName to temporary folder");
+        } else {
+            $this->logStep("File - $this->fileName has already been downloaded");
         }
-
-//
-//        if ($status === 200 && Storage::missing("temp/$this->fileName")) {
-//            Storage::put("temp/$this->fileName", $content);
-//            $this->logStep("Downloaded file - $this->fileName to temporary folder");
-//        } else {
-//            $this->logStep("File - $this->fileName has already been downloaded");
-//        }
     }
 
     private function urlAccessible(): bool
@@ -189,6 +167,15 @@ class FileImportService
         $importedMD5Hashes = $this->getAllMD5Hashes();
 
         return in_array($this->tempFileMD5Hash, $importedMD5Hashes, true);
+    }
+
+    function isUrlAccessible(): bool
+    {
+        // Suppress warnings with @ in case the URL is not reachable
+        $headers = @get_headers($this->fileUrl);
+        dd($headers);
+
+        return $headers && strpos($headers[0], '200') !== false;
     }
 
 }

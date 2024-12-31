@@ -27,7 +27,6 @@ const gridSize = {
   false: 'grid-cols-3 md:grid-cols-3'
 }
 </script>
-<!--<div :class="[statuses[outage.status], 'flex-none rounded-full p-1 animate-pulse']">-->
 
 <template>
   <div class="flex flex-col my-2">

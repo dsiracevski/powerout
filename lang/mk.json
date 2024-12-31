@@ -1,4 +1,6 @@
 {
+  "dark": "темна",
+  "light": "светла",
   "menu.home": "дома",
   "menu.about": "повеќе",
   "filter.filters": "филтри",

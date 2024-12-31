@@ -4,6 +4,7 @@ import {Link} from "@inertiajs/vue3";
 import UpdateButton from "@/Components/Filters/UpdateButton.vue";
 import {loadLanguageAsync} from 'laravel-vue-i18n';
 import {ref, watch} from "vue";
+import {useLanguageStore} from "@/stores/languageStore.js";
 
 let darkMode = ref(false);
 
@@ -14,17 +15,23 @@ watch(darkMode, () => {
     document.querySelector('html').classList.remove('dark');
   }
 })
+const languageStore = useLanguageStore();
+
 
 function changeMode() {
   document.querySelector('html').classList.add('dark');
-  console.log("changeMode");
+}
+
+function changeLanguage(val) {
+  loadLanguageAsync(val);
+  languageStore.updateLanguage(val);
 }
 </script>
 
 <template>
   <div class="bg-transparent grid grid-cols-3 place-content-around gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
     <div class="flex">
-      <button aria-label="mk" @click="loadLanguageAsync('mk')" class="rounded-full">
+      <button aria-label="mk" @click="changeLanguage('mk')" class="rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -53,7 +60,7 @@ function changeMode() {
           </g>
         </svg>
       </button>
-      <button aria-label="en" @click="loadLanguageAsync('en')">
+      <button aria-label="en" @click="changeLanguage('en')">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -105,16 +112,18 @@ function changeMode() {
         {{ $t('menu.about') }}
       </Link>
     </div>
-    <div class="flex place-content-end pr-1">
-      <label class="relative inline-flex cursor-pointer items-center">
-        <input @click="darkMode = !darkMode" type="checkbox" value="" checked class="peer sr-only" />
-        <div
-            class="peer flex h-8 items-center gap-2 rounded-2xl bg-orange-600 px-2 after:absolute after:left-1 after: after:h-6 after:w-10 after:rounded-full after:bg-white/40 after:transition-all after:content-[''] peer-checked:bg-stone-600 peer-checked:after:translate-x-full peer-focus:outline-none dark:border-slate-600 dark:bg-slate-700 text-sm text-white"
-        >
-          <span>Dark</span>
-          <span>Light</span>
-        </div>
-      </label>
+    <div class="flex place-content-end my-auto pr-1">
+      <button @click="darkMode = !darkMode"
+              class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
+        <svg class="fill-violet-700 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+        </svg>
+        <svg class="fill-yellow-500 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+          <path
+              d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+              fill-rule="evenodd" clip-rule="evenodd"></path>
+        </svg>
+      </button>
     </div>
   </div>
 </template>

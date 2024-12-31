@@ -1,16 +1,9 @@
 <script setup>
-import dayjs from "dayjs";
-import DateFilterButton from "@/Components/Filters/DateFilterButton.vue";
-import UpdateButton from "@/Components/Filters/UpdateButton.vue";
-import DateInput from "@/Components/Filters/DateInput.vue";
-import SearchInput from "@/Components/Filters/SearchInput.vue";
-import Pagination from "@/Pages/Pagination.vue";
 import Alert from "@/Pages/Alert.vue";
 import Location from "@/Components/ListComponents/Location.vue";
 import Duration from "@/Components/ListComponents/Duration.vue";
 import Address from "@/Components/ListComponents/Address.vue";
-import ResetButton from "@/Components/Filters/ResetButton.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
 import FilterGroup from "@/Components/Filters/FilterGroup.vue";
 import Cat from "@/Components/Custom/Cat.vue";
 
@@ -24,6 +17,12 @@ let props = defineProps({
   },
   activeMessage: Object
 });
+
+let outages = ref(props.data)
+
+watch(() => props.data, (newVal, oldVal) => {
+  outages = newVal;
+})
 
 let activeMessage = props.activeMessage;
 let messageType = ref('');
@@ -39,6 +38,7 @@ const statuses = {
   Finished: 'text-green-400 bg-green-400/10',
   Upcoming: 'text-yellow-400 bg-yellow-400/10'
 }
+
 </script>
 
 <template>
@@ -50,16 +50,16 @@ const statuses = {
     <div class=" flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-6">
       <div class="w-full max-w-3xl mx-auto">
         <div
-            v-if="props.data.length"
-            v-for="outage in props.data"
+            v-if="outages.length"
+            v-for="outage in outages"
             :key="outage.id"
             class="-my-6 divide-y "
         >
           <transition name="slide-fade" mode="out-in" appear>
             <ul class="relative pl-8 sm:pl-32 py-6 group space-y-2">
-              <Location :name="outage.location.name"/>
+              <Location :data="outage.location.name"/>
               <Duration :start="outage.start" :end="outage.end"/>
-              <Address :addresses="outage.address"/>
+              <Address :data="outage.address"/>
             </ul>
           </transition>
         </div>
@@ -70,7 +70,7 @@ const statuses = {
                 <p class="text-white">
                   No results...
                 </p>
-                <Cat />
+                <Cat/>
               </div>
             </div>
           </transition>
@@ -100,6 +100,7 @@ const statuses = {
 .fade-enter-active {
   transition: opacity 0.9s ease;
 }
+
 .fade-leave-active {
   transition: opacity 0.9s ease;
 }
