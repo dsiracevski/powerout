@@ -118,7 +118,10 @@ function goToTop() {
         :current-date="filter.date"/>
     <div class="bg-transparent w-full mt-2 mb-2 flex place-content-evenly">
       <Pagination :links="links" />
-      <button name="to_top" aria-label="go_to_top"
+      <button
+          v-if="outages.data.length"
+          name="to_top"
+          aria-label="go_to_top"
           @click="goToTop"
           class="animate-bounce md:hidden">
         <svg
