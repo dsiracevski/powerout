@@ -13,7 +13,8 @@ function importOutages() {
 
 <template>
  <div class="mx-auto bg-white rounded-full border border-white">
-   <button @click="importOutages"
+   <button name="updateButton" aria-label="update"
+       @click="importOutages"
            class="px-2 py-1 content-center rounded-full bg-gray-100 text-black relative group shadow-md shadow-white">
 
      <svg class="animate-pulse" viewBox="0 0 24 24" fill="white" height="50px" width="45px" xmlns="http://www.w3.org/2000/svg">
@@ -29,10 +30,6 @@ function importOutages() {
                stroke-linejoin="round"></path>
        </g>
      </svg>
-<!--     <span-->
-<!--         class="absolute left-1/2 top-full mt-2 w-max -translate-x-1/2 bg-gray-700 text-white text-sm p-2 rounded opacity-0 transition-opacity duration-300 group-hover:opacity-100">-->
-<!--                Update-->
-<!--          </span>-->
    </button>
  </div>
 </template>
