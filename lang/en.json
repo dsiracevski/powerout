@@ -17,6 +17,7 @@
   "welcome.first": "Welcome to ",
   "welcome.last": "- my little pet project and your user-friendly resource for real-time information on planned power disconnection in your area and throughout the country. Whether you're a homeowner, a business owner, or simply someone planning ahead, this application provides the means and insights you need to stay informed and prepared.",
   "welcome.explore": "Explore the site to discover how you can take charge of staying informed and prepared for power outages.",
+  "welcome.origin": "Data is loaded from ",
   "roadmap.title": "What's next:",
   "roadmap.first": "Live Outage Map",
   "roadmap.first.body": "Track current outages and affected areas in real-time on country map",

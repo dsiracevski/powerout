@@ -36,6 +36,7 @@ function goToTop() {
           <Roadmap />
           <p class="mt-6">
             {{ $t('welcome.explore') }}
+            {{ $t('welcome.origin') }} <span class="underline"><a href="https://elektrodistribucija.mk/" target="_blank">elektrodistribucija.mk</a></span>
           </p>
           <Contact />
         </div>
