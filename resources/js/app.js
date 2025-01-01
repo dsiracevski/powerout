@@ -6,7 +6,6 @@ import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 import {createApp, h} from 'vue';
 import {ZiggyVue} from '../../vendor/tightenco/ziggy';
 import {createPinia} from "pinia";
-import {autoAnimatePlugin} from "@formkit/auto-animate/vue";
 import {i18nVue} from 'laravel-vue-i18n';
 import VueTag from 'vue-gtag'
 
@@ -24,7 +23,6 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(createPinia())
-            .use(autoAnimatePlugin)
             .use(VueTag, {
                 config: {id: "G-4G5BZLWH7H"}
             })
