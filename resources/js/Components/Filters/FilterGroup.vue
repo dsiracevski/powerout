@@ -30,7 +30,7 @@ const gridSize = {
 
 <template>
   <div class="flex flex-col my-2">
-    <button @click="toggleFilters" class="border-l-orange-500 border-l-orange-500 border-l-orange-500 mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-500">
+    <button @click="toggleFilters" class="border border-orange-800 mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-500">
       {{ $t('filter.search') }}
     </button>
     <transition name="fade">

@@ -100,7 +100,7 @@ function changeLanguage(val) {
     <div class="bg-transparent flex place-content-center gap-0 relative self-center left-1">
       <Link
           href="/"
-          class="relative top-0 left-3 border-t-2 border-l-2 border-white border-b-2 py-2 px-4 bg-[#C9E6F0] my-auto rounded-2xl rounded-r-none capitalize">
+          class="relative top-0 left-3 border-t-2 border-l-2 border-white border-b-2 py-2 px-4 bg-cyan-300 my-auto rounded-2xl rounded-r-none capitalize">
         {{ $t('menu.home') }}
       </Link>
       <div class="relative z-10 border-2 text-white rounded-full">
@@ -108,7 +108,7 @@ function changeLanguage(val) {
       </div>
       <Link
           href='/about'
-          class="relative top-0 -left-3 border-t-2 border-r-2 border-white border-b-2 py-2 px-4 bg-[#C9E6F0] my-auto rounded-2xl rounded-l-none capitalize">
+          class="relative top-0 -left-3 border-t-2 border-r-2 border-white border-b-2 py-2 px-4 bg-cyan-300 my-auto rounded-2xl rounded-l-none capitalize">
         {{ $t('menu.about') }}
       </Link>
     </div>
