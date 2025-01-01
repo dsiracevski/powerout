@@ -29,7 +29,7 @@ function changeLanguage(val) {
 </script>
 
 <template>
-  <div class="bg-transparent grid grid-cols-3 place-content-around gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
+  <div class="bg-transparent grid grid-cols-3 place-content-around gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto mb-2">
     <div class="flex">
       <button name="lang_mk" aria-label="mk" @click="changeLanguage('mk')" class="rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
@@ -103,7 +103,7 @@ function changeLanguage(val) {
           class="relative top-0 left-3 border-t-2 border-l-2 border-white border-b-2 py-2 px-4 bg-cyan-300 my-auto rounded-2xl rounded-r-none capitalize">
         {{ $t('menu.home') }}
       </Link>
-      <div class="relative z-10 border-2 text-white rounded-full">
+      <div class="relative z-10 border-2 border-t-white border-b-white border-l-cyan-300 border-r-cyan-300 text-white rounded-full">
         <UpdateButton/>
       </div>
       <Link
