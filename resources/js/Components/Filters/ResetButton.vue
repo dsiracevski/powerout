@@ -1,7 +1,6 @@
 <script setup>
 import {useEventStore} from "@/stores/eventStore.js";
 let eventStore = useEventStore();
-
 </script>
 
 <template>
@@ -11,7 +10,3 @@ let eventStore = useEventStore();
     {{ $t('filter.reset') }}
   </button>
 </template>
-
-<style scoped>
-
-</style>
