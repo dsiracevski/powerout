@@ -65,12 +65,11 @@ const statuses = {
         </div>
         <div v-else class="h-80 flex items-center justify-center">
           <transition name="fade" appear>
-            <div class="bg-[#161616] rounded-full px-14 py-12 shadow-xl shadow-orange-500">
+            <div class="rounded-lg px-14 py-12 md:shadow-xl md:shadow-gray-300">
               <div class="flex flex-col content-center text-center gap-5">
-                <p class="text-white">
-                  {{ $t('No Results') }}
+                <p class="dark:text-white">
+                  {{ $t('No Results') }} {{selectedDate}}
                 </p>
-                <Cat/>
               </div>
             </div>
           </transition>
