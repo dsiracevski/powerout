@@ -31,7 +31,7 @@ function changeLanguage(val) {
 <template>
   <div class="bg-transparent grid grid-cols-3 place-content-around gap-5 relative md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto">
     <div class="flex">
-      <button aria-label="mk" @click="changeLanguage('mk')" class="rounded-full">
+      <button name="lang_mk" aria-label="mk" @click="changeLanguage('mk')" class="rounded-full">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -60,7 +60,7 @@ function changeLanguage(val) {
           </g>
         </svg>
       </button>
-      <button aria-label="en" @click="changeLanguage('en')">
+      <button name="lang_en" aria-label="en" @click="changeLanguage('en')">
         <svg xmlns="http://www.w3.org/2000/svg" width="38" height="32" viewBox="-8 -5 37 35">
           <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
           <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -113,7 +113,7 @@ function changeLanguage(val) {
       </Link>
     </div>
     <div class="flex place-content-end my-auto pr-1">
-      <button @click="darkMode = !darkMode"
+      <button name="mode_switcher" aria-label="mode" @click="darkMode = !darkMode"
               class="h-12 w-12 rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-700">
         <svg class="fill-violet-700 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
           <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>

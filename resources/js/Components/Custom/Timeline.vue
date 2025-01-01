@@ -3,9 +3,17 @@ import Alert from "@/Pages/Alert.vue";
 import Location from "@/Components/ListComponents/Location.vue";
 import Duration from "@/Components/ListComponents/Duration.vue";
 import Address from "@/Components/ListComponents/Address.vue";
-import {ref, watch} from "vue";
+import {inject, ref, watch} from "vue";
 import FilterGroup from "@/Components/Filters/FilterGroup.vue";
-import Cat from "@/Components/Custom/Cat.vue";
+import dayjs from "dayjs";
+const filter = inject('filter');
+
+let selectedDate = ref(dayjs().format("DD-MM-YYYY"));
+watch(filter, (value) => {
+  if (value.date) {
+    selectedDate.value = value.date;
+  }
+})
 
 let props = defineProps({
   data: {
@@ -38,14 +46,13 @@ const statuses = {
   Finished: 'text-green-400 bg-green-400/10',
   Upcoming: 'text-yellow-400 bg-yellow-400/10'
 }
-
 </script>
 
 <template>
   <Alert v-show="activeMessage.length" :type="messageType" :message="message"/>
 
   <div
-      class="md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto px-4 md:px-6 bg-stone-100 dark:bg-gray-300 shadow-lg rounded-2xl shadow-cyan-400 divide-y-2 divide-solid divide-[#C9E6F0] overflow-auto lg:min-w-[896px]">
+      class="md:max-w-4xl lg:max-w-7xl lg:min-w-7xl min-w-[332px] mx-auto px-4 md:px-6 bg-white dark:bg-gray-300 shadow-lg rounded-2xl shadow-cyan-400 border-2 border-cyan-400 divide-y-2 divide-solid divide-[#C9E6F0] overflow-auto lg:min-w-[896px]">
     <FilterGroup/>
     <div class=" flex flex-col justify-center divide-y divide-slate-200 [&>*]:py-6">
       <div class="w-full max-w-3xl mx-auto">
@@ -65,11 +72,12 @@ const statuses = {
         </div>
         <div v-else class="h-80 flex items-center justify-center">
           <transition name="fade" appear>
-            <div class="rounded-lg px-14 py-12 md:shadow-xl md:shadow-gray-300">
+            <div class="rounded-lg px-14 py-12 shadow-xl dark:bg-gray-400 shadow-gray-700">
               <div class="flex flex-col content-center text-center gap-5">
                 <p class="dark:text-white">
                   {{ $t('No Results') }} {{selectedDate}}
                 </p>
+                <Cat/>
               </div>
             </div>
           </transition>

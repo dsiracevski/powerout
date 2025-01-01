@@ -11,7 +11,7 @@
   "Previous": "Previous",
   "Next": "Next",
   "site.name": "PrekiniNaStruja.mk",
-  "intro.first": "As a software developer, I might not be able to code your life, but I can ",
+  "intro.first": "As a software developer, I am not able to code your life, but I can ",
   "intro.try": "try",
   "intro.last": " to make it a bit easier",
   "welcome.first": "Welcome to ",
@@ -24,7 +24,7 @@
   "roadmap.second.body": "Analyze past outage trends and patterns for better preparedness (charts, graphs, and such)",
   "roadmap.third": "Proactive Alerts",
   "roadmap.third.body": "Sign up for notifications to stay ahead of potential disruptions in your region",
-  "contact.intro": "Have a suggestion or want to contact me?",
-  "contact.outro": "You can find me here:",
-  "No Results": "No results..."
+  "contact.intro": "Have something to say?",
+  "contact.outro": "Find me here:",
+  "No Results": "No planned disconnections for"
 }

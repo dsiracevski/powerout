@@ -25,7 +25,7 @@ function goToTop() {
     <Menu/>
     <transition name="slide-fade" mode="out-in" appear>
       <div
-          class=" md:max-w-3xl lg:min-w-7xl min-w-[332px] min-h-full mx-auto px-4 md:px-6 bg-white md:shadow-lg rounded-2xl md:shadow-cyan-500/50 divide-y-2 divide-solid divide-cyan-500/50 overflow-auto lg:min-w-[896px]">
+          class="md:max-w-3xl lg:min-w-7xl min-w-[332px] min-h-full mx-auto px-4 md:px-6 bg-white md:shadow-lg rounded-2xl md:shadow-cyan-500/50 divide-y-2 divide-solid divide-cyan-500/50 overflow-auto lg:min-w-[896px]">
         <div class="flex flex-col justify-center items-start gap-2 m-6">
           <p class="self-center mb-4 text-2xl">{{ $t('site.name') }}</p>
           <p>
