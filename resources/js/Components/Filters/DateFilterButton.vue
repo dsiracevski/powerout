@@ -15,7 +15,7 @@ let date = ref(props.date);
 <template>
   <button
       @click="eventStore.updateDate(date)"
-      class="min-w-[60px] md:capitalize lowercase md:text-sm text-xs py-2 rounded-xl border border-[#C9E6F0] bg-[#C9E6F0] text-gray-700 shadow-md shadow-gray-400">
+      class="min-w-[60px] md:capitalize lowercase md:text-sm text-xs py-2 rounded-xl border border-cyan-300 bg-cyan-300 text-gray-700 shadow-md shadow-gray-400">
     {{ title }}
   </button>
 </template>

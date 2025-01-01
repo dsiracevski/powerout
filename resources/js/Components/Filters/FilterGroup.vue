@@ -8,6 +8,11 @@ import SearchInput from "@/Components/Filters/SearchInput.vue";
 import {inject, ref, watch} from "vue";
 
 const filter = inject('filter');
+let selectedDate = ref(dayjs().format("YYYY-MM-DD"));
+
+let yesterday = dayjs().subtract(1, 'day').format('YYYY-MM-DD');
+let today = dayjs().format('YYYY-MM-DD');
+let tomorrow = dayjs().add(1, 'day').format('YYYY-MM-DD');
 
 let toggle = ref(false);
 let toggleReset = ref(false);
@@ -16,10 +21,16 @@ watch(filter, (value) => {
   if (value.date || value.name) {
     toggleReset.value = true;
   }
+
+  selectedDate.value = dayjs(value.date).format('YYYY-MM-DD');
 })
 
 function toggleFilters() {
   toggle.value = !toggle.value;
+}
+
+function buttonSelected(value) {
+  return selectedDate.value === value;
 }
 
 const gridSize = {
@@ -30,18 +41,25 @@ const gridSize = {
 
 <template>
   <div class="flex flex-col my-2">
-    <button @click="toggleFilters" class="border border-orange-800 mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-500">
+    <button @click="toggleFilters" class="mx-auto px-3 py-2 rounded-xl capitalize text-white md:text-md text-sm bg-orange-400 border-orange-500">
       {{ $t('filter.search') }}
     </button>
     <transition name="fade">
       <div v-show="toggle" class="place-content-between mt-5 grid md:grid-cols-2 grid-cols-1 gap-2 mx-auto mb-4">
         <div
             :class="[gridSize[toggleReset], 'grid md:col-span-1 col-span-2 gap-2 md:order-first order-last']">
-          <DateFilterButton class="" :title="$t('filter.yesterday')"
-                            :date="dayjs().subtract(1, 'day').format('YYYY-MM-DD')"/>
-          <DateFilterButton class="" :title="$t('filter.today')" :date="dayjs().format('YYYY-MM-DD')"/>
-          <DateFilterButton class="" :title="$t('filter.tomorrow')"
-                            :date="dayjs().add(1, 'day').format('YYYY-MM-DD')"/>
+          <DateFilterButton
+              :class="{'opacity-25 cursor-not-allowed pointer-events-none': buttonSelected(yesterday)}"
+              :title="$t('filter.yesterday')"
+              :date="yesterday"/>
+          <DateFilterButton
+              :class="{'opacity-25 cursor-not-allowed pointer-events-none': buttonSelected(today)}"
+              :title="$t('filter.today')"
+              :date="today"/>
+          <DateFilterButton
+              :class="{'opacity-25 cursor-not-allowed pointer-events-none': buttonSelected(tomorrow)}"
+              :title="$t('filter.tomorrow')"
+              :date="tomorrow"/>
           <transition name="slide-fade" mode="out-in">
             <ResetButton v-if="toggleReset" @click="toggleReset = false"/>
           </transition>
