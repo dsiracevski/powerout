@@ -27,5 +27,8 @@
   "roadmap.third.body": "Sign up for notifications to stay ahead of potential disruptions in your region",
   "contact.intro": "Have something to say?",
   "contact.outro": "Find me here:",
-  "No Results": "No planned disconnections for"
+  "No Results": "No planned disconnections for",
+  "warning": "Limit reached. Check again in :minutes minutes.",
+  "success": "Updated data. Imported :number new outages.",
+  "info": "Couldn't find upcoming outages."
 }

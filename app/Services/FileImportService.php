@@ -30,7 +30,7 @@ class FileImportService
         if ($this->importShouldContinue) {
             $recordsCount = $this->importOutageDocument();
             return redirect()->back()->with([
-                'success' => 'Success, '.$recordsCount.' records updated.',
+                'success' => __('success', ['number' => $recordsCount]),
             ]);
         }
 
@@ -38,7 +38,7 @@ class FileImportService
         $this->logStep('File data already imported to database, nothing to import...');
 
         return redirect()->back()->with([
-                'info' => "Nothing to update."
+                'info' => __('info')
             ]
         );
     }

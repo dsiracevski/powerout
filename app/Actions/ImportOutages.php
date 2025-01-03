@@ -20,10 +20,11 @@ final class ImportOutages
         $isLastHour = Carbon::parse($lastUpdate)->isCurrentHour();
 
         if ($isLastHour) {
-            return redirect()->back()->with([
-                    'warning' => "Check again in " . floor(now()->copy()->endOfHour()->diffInMinutes(now(), true)) . ' minutes'
-                ]
-            );
+            return redirect()
+                ->back()
+                ->with([
+                    'warning' => __('warning', ['minutes' => floor(now()->copy()->endOfHour()->diffInMinutes(now(), true))])
+                ]);
         }
 
         return (new FileImportService())->handle();

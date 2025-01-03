@@ -1,10 +1,13 @@
 <script setup>
 import {router} from "@inertiajs/vue3";
+import {getActiveLanguage} from "laravel-vue-i18n";
 
 function importOutages() {
   router.get('/import',
       {
+        locale: getActiveLanguage(),
         preserveState: true,
+        preserveScroll: true,
         replace: true
       }
   )
